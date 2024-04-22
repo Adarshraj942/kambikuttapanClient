@@ -20,3 +20,9 @@
     align-items: flex-start;
     gap: 1.5rem;
 }
+.detail{
+    color:black
+}
+.likeImg{
+    cursor: pointer;
+}

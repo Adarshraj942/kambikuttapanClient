@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import './Auth.css'
 import Logo from '../../img/logo.png'
 import authback from '../../img/authback.png'
@@ -43,8 +43,9 @@ function LogIn({ setIsLogin }) {
     password: '',
   })
   const { user, isLoading, isError, isSuccess, error } = useSelector(
-    (state) => state?.auth ||{}
+    (state) => state?.auth 
   );
+  // if we use this useSelector we getting the error
 
   const loginSubmit = async (e) => {
     e.preventDefault()

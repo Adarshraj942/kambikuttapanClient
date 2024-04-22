@@ -1,12 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import {BrowserRouter, Routes,Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 ReactDOM.render(
-  <BrowserRouter >
-  <Routes>
-    <Route path="*" element={ <App/>}/>
-  </Routes>
+  <BrowserRouter>
+    <Routes>
+      <Route
+        path="*"
+        element={
+          <React.StrictMode>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </React.StrictMode>
+        }
+      />
+    </Routes>
   </BrowserRouter>,
   document.getElementById("root")
 );

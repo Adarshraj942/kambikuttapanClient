@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import './Auth.css'
 import Logo from '../../img/logo.png'
 import authback from '../../img/authback.png'
-import { login } from '../../features/auth/authSlice'
-import { Navigate } from 'react-router-dom'
+// import { login } from '../../features/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
+import { logIn } from '../../actions/auth.actions'
 // import { NavLink } from 'react-router-dom'
 // import { path } from '../../paths/paths'
 
@@ -37,21 +38,19 @@ const Auth = () => {
 }
 function LogIn({ setIsLogin }) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
   })
-  const { user, isLoading, isError, isSuccess, error } = useSelector(
-    (state) => state?.auth 
-  );
-  // if we use this useSelector we getting the error
+  const authData = useSelector((state) => state.authReducer.authData)
 
   const loginSubmit = async (e) => {
     e.preventDefault()
     await dispatch(
-      login({
-        email: loginData?.email,
+      logIn({
+        email: loginData?.username,
         password: loginData?.password,
       }),
     )
@@ -62,11 +61,11 @@ function LogIn({ setIsLogin }) {
   //   (state) => state?.auth,
   // )
 
-  // useEffect(() => {
-  //   if (user) {
-  //     Navigate(path.home);
-  //   }
-  // }, [user, isLoading, isError, isSuccess, error]);
+  useEffect(() => {
+    if (authData?.data) {
+      navigate(path.home)
+    }
+  }, [authData])
 
   return (
     <div className="a-right" style={{ color: 'black' }}>

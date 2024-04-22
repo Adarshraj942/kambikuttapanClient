@@ -1,0 +1,7 @@
+.SinglePost{
+    position: relative;
+    display: grid;
+    grid-template-columns: 5rem auto 5rem;
+    gap: 1rem;
+    background-color: rgb(228,234,234);
+}

@@ -12,6 +12,12 @@ const Post = ({ data }) => {
   const [liked, setLiked] = useState(data?.isLiked)
   const [likes, setLikes] = useState(data?.likes)
 
+  const handleSelect = () => {
+    if (!data?.isFree && !data?.isPaid) {
+      alert('need to pay ')
+    }
+  }
+
   const handleLike = () => {
     setLiked((prev) => !prev)
 
@@ -19,7 +25,7 @@ const Post = ({ data }) => {
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1)
   }
   return (
-    <div className="Post">
+    <div onClick={handleSelect} className="Post">
       <img src={data?.image} alt="" />
 
       <div className="postReact">

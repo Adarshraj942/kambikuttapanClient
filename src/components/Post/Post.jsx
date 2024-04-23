@@ -6,9 +6,12 @@ import Heart from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
 import { useSelector } from 'react-redux'
 import { likeAndCommentPost } from '../../api/postRequest'
-import { appConfig } from '../../config/appConfig';
+import { appConfig } from '../../config/appConfig'
+import { useNavigate } from 'react-router-dom'
+import { path } from '../../paths/paths'
 
 const Post = ({ data }) => {
+  const navigate = useNavigate()
   const { user } = useSelector((state) => state.authReducer.authData)
   const [liked, setLiked] = useState(data?.isLiked)
   const [likes, setLikes] = useState(data?.likes)
@@ -16,6 +19,8 @@ const Post = ({ data }) => {
   const handleSelect = () => {
     if (!data?.isFree && !data?.isPaid) {
       alert('need to pay')
+    } else {
+      navigate(path.singlePost, { state: { postId: data?._id } });
     }
   }
 

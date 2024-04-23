@@ -78,6 +78,7 @@ function LogIn({ setIsLogin }) {
             placeholder="Username"
             className="infoInput"
             name="username"
+            required
             id="username"
             onChange={(e) =>
               setLoginData({
@@ -94,6 +95,7 @@ function LogIn({ setIsLogin }) {
             className="infoInput"
             placeholder="Password"
             name="password"
+            required
             id="password"
             onChange={(e) =>
               setLoginData({

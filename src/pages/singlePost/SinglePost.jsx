@@ -12,7 +12,13 @@ import Share from '../../img/share.png'
 import Heart from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
 import { PostsData } from '../../Data/PostsData'
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 const SinglePost = (PostsData) => {
+
+  const location = useLocation();
+  const { postId } = location.state;
+  console.log(postId,"postId");
   return (
     <div
       className="SinglePost"
@@ -48,7 +54,7 @@ const SinglePost = (PostsData) => {
             </div>
 
             <span style={{ color: 'var(--gray)', fontSize: '12px' }}>
-              {PostsData[0]?.likes} likes
+              {PostsData[0]?.likes} likes 
             </span>
 
             <div className="detail">

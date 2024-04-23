@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { useState, useRef, useEffect } from 'react'
 import ProfileImage from '../../img/profileImg.jpg'
 import './PostShare.css'
@@ -7,16 +8,15 @@ import { UilLocationPoint } from '@iconscout/react-unicons'
 import { UilSchedule } from '@iconscout/react-unicons'
 import { UilTimes } from '@iconscout/react-unicons'
 import { useSelector } from 'react-redux'
+import { getPreSignedUrlUtill } from '../../utils/s3.utils'
 
-
-const PostShare = ({data,setData}) => {
+const PostShare = ({ data, setData }) => {
   const authData = useSelector((state) => state.authReducer.authData)
 
   const [image, setImage] = useState(null)
   const imageRef = useRef()
 
-
-  const onImageChange = (event) => {
+  const onImageChange = async (event) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0]
       setImage(URL.createObjectURL(img))
@@ -24,7 +24,8 @@ const PostShare = ({data,setData}) => {
         ...data,
         image: img,
       })
-      console.log(data,"appledderrff",URL.createObjectURL(img));
+      await getPreSignedUrlUtill(img)
+      console.log(img?.name, 'image-image')
     }
   }
 
@@ -68,7 +69,12 @@ const PostShare = ({data,setData}) => {
         </div>
         {data?.image && (
           <div className="previewImage">
-            <UilTimes onClick={() => setImage(null)} />
+            <UilTimes
+              onClick={() => {
+                setImage(null),
+                 setData({ ...data, image: null })
+              }}
+            />
             <img src={image} alt="sdfsf" />
           </div>
         )}

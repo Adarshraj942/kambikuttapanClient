@@ -34,7 +34,7 @@ if(isUploaded){
       <TrendCard />
 
       <button
-        style={{ color: 'black', display: `${isAuthor ? 'block' : 'none'}` }}
+        style={{ color: 'black', display: `${!isAuthor ? 'block' : 'none'}` }}
         className="button r-button"
         onClick={() => setModalOpened(true)}
       >

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getLocalStorageItem } from "../utils/appUtils";
+import { appConfig } from "../config/appConfig";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api/v1" });
+const API = axios.create({ baseURL: appConfig.apiUrl });
 
 export const getAllPosts = async () => {
   try {

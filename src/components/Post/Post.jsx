@@ -14,7 +14,7 @@ const Post = ({ data }) => {
 
   const handleSelect = () => {
     if (!data?.isFree && !data?.isPaid) {
-      alert('need to pay ')
+      alert('need to pay')
     }
   }
 

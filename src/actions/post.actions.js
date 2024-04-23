@@ -10,11 +10,22 @@ export const getAllPosts = () => async (dispatch) => {
     dispatch({ type: "FETCH_FAILED" });
   }
 };
+export const getPostById = (postId) => async (dispatch) => {
+  dispatch({ type: "FETCH_POST_START" });
+  try {
+    const { data } = await PostApi.getPostById(postId); // Assuming there's a method like getPostById in your API
+    dispatch({ type: "FETCH_POST_SUCCESS", data: data?.data });
+  } catch (error) {
+    console.log(error, "errorrorrosss");
+    dispatch({ type: "FETCH_POST_FAILED" });
+  }
+};
+
 export const createPost = (postData) => async (dispatch) => {
   dispatch({ type: "UPLOAD_START" });
   try {
     const { data } = await PostApi.createPost(postData);
-    console.log(data,"post data success");
+    console.log(data, "post data success");
     dispatch({ type: "UPLOAD_SUCCESS", data: data?.data });
   } catch (error) {
     console.log(error?.message, "errorrorro");

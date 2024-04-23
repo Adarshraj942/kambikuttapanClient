@@ -14,6 +14,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         await dispatch(getAllPosts())
+        
       } catch (error) {
         console.error('Error fetching posts:', error)
       }

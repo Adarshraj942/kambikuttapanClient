@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react'
 import './SinglePost.css'
 import Post from '../../components/Post/Post'
 import Posts from '../../components/Posts/Posts'
@@ -12,13 +13,22 @@ import Share from '../../img/share.png'
 import Heart from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
 import { PostsData } from '../../Data/PostsData'
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import { getPostById } from '../../actions/post.actions';
 const SinglePost = (PostsData) => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const { postId } = location.state
+  console.log(postId, 'postId')
 
-  const location = useLocation();
-  const { postId } = location.state;
-  console.log(postId,"postId");
+  const post = useSelector((state) => state.postReducer.post)
+
+  useEffect(async () => {
+    await dispatch(getPostById({postId}))
+  }, [dispatch, postId])
+  console.log(post, 'post post post post post')
+
   return (
     <div
       className="SinglePost"
@@ -54,7 +64,7 @@ const SinglePost = (PostsData) => {
             </div>
 
             <span style={{ color: 'var(--gray)', fontSize: '12px' }}>
-              {PostsData[0]?.likes} likes 
+              {PostsData[0]?.likes} likes
             </span>
 
             <div className="detail">

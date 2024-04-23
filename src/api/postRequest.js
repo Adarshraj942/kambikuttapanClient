@@ -16,6 +16,18 @@ export const getAllPosts = async () => {
     console.log(error);
   }
 };
+export const getPostById = async ({postId}) => {
+  try {
+    const userData = getLocalStorageItem("profile");
+    return await API.get(`/post/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${userData?.data?.token}` // Include the Bearer token in the Authorization header
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const likeAndCommentPost = async (id, userId) => {
   try {

@@ -1,7 +1,17 @@
-.SinglePost{
-    position: relative;
-    display: grid;
-    grid-template-columns: 5rem auto 5rem;
-    gap: 1rem;
-    background-color: rgb(228,234,234);
+.SinglePost {
+  position: relative;
+  display: grid;
+  grid-template-columns: 18rem auto 20rem;
+  gap: 1rem;
+}
+
+.navIcons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navIcons > img {
+  width: 1.5rem;
+  height: 1.5rem;
 }

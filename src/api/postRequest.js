@@ -16,16 +16,36 @@ export const getAllPosts = async () => {
   }
 };
 
-export const likeAndCommentPost = (id, userId) => {
+export const likeAndCommentPost = async (id, userId) => {
   try {
     const userData = getLocalStorageItem("profile");
     const token = userData?.data?.token;
 
-    API.patch(
+    return await API.patch(
       `post/user/${id}`,
       {
         userId: userId,
-        like:true
+        like: true
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // Include the Bearer token in the Authorization header
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const createPost = async (postData) => {
+  try {
+    const userData = getLocalStorageItem("profile");
+    const token = userData?.data?.token;
+
+    return await API.post(
+      `post`,
+      {
+        ...postData
       },
       {
         headers: {

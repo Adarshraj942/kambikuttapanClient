@@ -6,6 +6,7 @@
     background-color: var(--cardColor);
     border-radius: 1rem;
     gap: 1rem;
+    cursor: pointer;
 }
 
 .Post>img{

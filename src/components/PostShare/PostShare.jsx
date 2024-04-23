@@ -20,12 +20,13 @@ const PostShare = ({ data, setData }) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0]
       setImage(URL.createObjectURL(img))
+
+      const imageData = await getPreSignedUrlUtill(img)
       setData({
         ...data,
-        image: img,
+        image: imageData ?? "",
       })
-      await getPreSignedUrlUtill(img)
-      console.log(img?.name, 'image-image')
+      console.log(imageData, 'image-image')
     }
   }
 
@@ -71,8 +72,7 @@ const PostShare = ({ data, setData }) => {
           <div className="previewImage">
             <UilTimes
               onClick={() => {
-                setImage(null),
-                 setData({ ...data, image: null })
+                setImage(null), setData({ ...data, image: null })
               }}
             />
             <img src={image} alt="sdfsf" />

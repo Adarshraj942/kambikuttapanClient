@@ -12,7 +12,7 @@ export const getPreSignedUrlUtill = async (file) => {
     });
     
     const preSignedUrl = data?.data?.data[0]?.url;
-    console.log(data?.data?.data[0]?.url, "data");
+    console.log(data?.data?.data[0], "data");
 
     // Make PUT request to upload image data to S3
     const response = await axios.put(preSignedUrl, file, {
@@ -21,9 +21,10 @@ export const getPreSignedUrlUtill = async (file) => {
       },
       timeout: 10000,
     });
+    
 
     console.log("Upload response:", response.data);
-    return response.data; // Return S3 response if needed
+    return data?.data?.data[0]?.file_name; // Return S3 response if needed
   } catch (error) {
     console.error("Error uploading image:", error?.message);
     // throw error; // Propagate error for handling

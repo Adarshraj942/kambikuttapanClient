@@ -23,8 +23,6 @@ function ShareModal({ modalOpened, setModalOpened }) {
     dispatch(
       createPost({
         ...data,
-        image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2kdp3snf0c1X1M0nG3vT4vhw-qAMEUvleONXIEnmONg&s',
       }),
     )
     // console.log(data, 'datassss',isSuccess)

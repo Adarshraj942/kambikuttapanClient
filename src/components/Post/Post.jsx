@@ -6,6 +6,7 @@ import Heart from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
 import { useSelector } from 'react-redux'
 import { likeAndCommentPost } from '../../api/postRequest'
+import { appConfig } from '../../config/appConfig';
 
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -26,7 +27,7 @@ const Post = ({ data }) => {
   }
   return (
     <div onClick={handleSelect} className="Post">
-      <img src={data?.image} alt="" />
+      <img src={`${appConfig.awsBucketUrl}/${data?.image}`} alt="story" />
 
       <div className="postReact">
         <img

@@ -1,18 +1,24 @@
 /* eslint-disable no-mixed-operators */
 /* eslint-disable no-unused-expressions */
 import { Modal, useMantineTheme } from '@mantine/core'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { UilTimes } from '@iconscout/react-unicons'
 import { getPreSignedUrlUtill } from '../../utils/s3.utils'
 import { appConfig } from '../../config/appConfig'
+import { useDispatch } from 'react-redux'
+import { updateUser } from '../../actions/auth.actions'
+import './profileModal.css'
 
 function ProfileModal({ modalOpened, setModalOpened, authData }) {
   const theme = useMantineTheme()
+  const dispatch = useDispatch()
 
   const [image, setImage] = useState({
-    pImg: null,
-    cImg: null,
+    profileImage: `${appConfig.awsBucketUrl}/${authData?.data?.profileImage}`,
+    coverImage: `${appConfig.awsBucketUrl}/${authData?.data?.coverImage}`,
   })
+
+  // useEffect(() => {}, [image])
   const imageRef = useRef()
 
   const [userData, setUserData] = useState({
@@ -30,12 +36,28 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
         ...image,
         [event.target.name]: URL.createObjectURL(img) ?? '',
       })
+      console.log(image, 'image', event.target.name)
       // setImage(URL.createObjectURL(img))
 
       const imageData = await getPreSignedUrlUtill(img)
       setUserData({ ...userData, [event.target.name]: imageData ?? '' })
       console.log(imageData, 'image-image')
     }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(userData, 'updateData')
+    dispatch(
+      updateUser({
+        firstName: userData?.firstName,
+        lastName: userData?.lastName,
+        profileImage: userData?.profileImage,
+        coverImage: userData?.coverImage,
+        phoneNumber: userData?.phoneNumber,
+        email: userData?.email,
+      }),
+    )
   }
 
   return (
@@ -51,8 +73,8 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
-      <form className="infoForm">
-        <h3>Your info</h3>
+      <form className="infoForm" onSubmit={handleSubmit}>
+        <h3>Your info </h3>
 
         <div style={{ marginTop: '20px', height: '4rem' }}>
           <div style={{ display: 'grid', width: '100%' }}>
@@ -130,35 +152,30 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
             <input
               id="profileImage"
               type="file"
-              name="profileImg"
+              name="profileImage"
               className="infoInput"
               ref={imageRef}
               onChange={onImageChange}
             />
-            {userData?.profileImage ||
-              (image.pImg && (
-                <div className="previewImage">
-                  <UilTimes
-                    onClick={(event) => {
-                      setImage({
-                        ...image,
-                        [event.target.name]: null,
-                      }),
-                        setUserData({ ...userData, [event.target.name]: null })
-                    }}
-                  />
-                  <img
-                    src={
-                      image.pImg
-                        ? image.pImg
-                        : userData?.profileImage
-                        ? `${appConfig.awsBucketUrl}/${userData?.profileImage}`
-                        : ''
-                    } 
-                    alt="profileImage"
-                  />
-                </div>
-              ))}
+            {(userData?.profileImage || image.profileImage) && (
+              <div>
+                <UilTimes
+                  style={{ cursor: 'pointer' }}
+                  onClick={(event) => {
+                    setImage({
+                      ...image,
+                      profileImage: null,
+                    }),
+                      setUserData({ ...userData, profileImage: null })
+                  }}
+                />
+                <img
+                  className="previewImageDiv"
+                  src={image.profileImage}
+                  alt="profileImage"
+                />
+              </div>
+            )}
           </div>
 
           <div style={{ display: 'grid', width: '100%' }}>
@@ -166,40 +183,44 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
             <input
               id="coverImage"
               type="file"
-              name="profileImg"
+              name="coverImage"
               className="infoInput"
               placeholder="PhoneNumber"
               ref={imageRef}
               onChange={onImageChange}
             />
-             {userData?.coverImage ||
-              (image.cImg && (
-                <div className="previewImage">
-                  <UilTimes
-                    onClick={(event) => {
-                      setImage({
-                        ...image,
-                        [event.target.name]: null,
-                      }),
-                        setUserData({ ...userData, [event.target.name]: null })
-                    }}
-                  />
-                  <img
-                    src={
-                      image.cImg
-                        ? image.cImg
-                        : userData?.coverImage
-                        ? `${appConfig.awsBucketUrl}/${userData?.coverImage}`
-                        : ''
-                    } 
-                    alt="profileImage"
-                  />
-                </div>
-              ))}
+            {(userData?.coverImage || image.coverImage) && (
+              <div>
+                <UilTimes
+                  style={{ cursor: 'pointer' }}
+                  onClick={(event) => {
+                    setImage({
+                      ...image,
+                      coverImage: null,
+                    }),
+                      setUserData({ ...userData, coverImage: null })
+                  }}
+                />
+                <img
+                  className="previewImageDiv"
+                  src={image.coverImage}
+                  alt="profileImage"
+                />
+              </div>
+            )}
           </div>
         </div>
 
-        <button className="button infoButton">Update</button>
+        <button
+          style={{
+            width: '100%',
+            marginTop: (image?.coverImage || image?.profileImage) ? '10rem' : '0',
+          }}
+          type="submit"
+          className="button infoInput"
+        >
+          Update
+        </button>
       </form>
     </Modal>
   )

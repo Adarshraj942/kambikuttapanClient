@@ -10,6 +10,7 @@ import { getAllPosts } from '../../actions/post.actions'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
 import { getLocalStorageItem } from '../../utils/appUtils'
+import { findUserProfile } from '../../actions/user.actions';
 const Home = () => {
   const userData = getLocalStorageItem('profile')
   const postData = useSelector((state) => state.postReducer.posts)
@@ -23,6 +24,7 @@ const Home = () => {
           navigate(path.auth)
         } else {
           await dispatch(getAllPosts())
+          await dispatch(findUserProfile())
         }
       } catch (error) {
         console.error('Error fetching posts:', error)
@@ -30,7 +32,7 @@ const Home = () => {
     }
 
     fetchData()
-  }, [userData])
+  }, [])
 
   return (
     <div className="Home" style={{ backgroundImage: `URL(${back})` }}>

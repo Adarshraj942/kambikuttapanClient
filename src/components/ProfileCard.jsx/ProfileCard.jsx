@@ -5,6 +5,7 @@ import './ProfileCard.css'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
+import { appConfig } from '../../config/appConfig';
 
 const ProfileCard = () => {
   const navigate = useNavigate()
@@ -26,8 +27,8 @@ const ProfileCard = () => {
       style={{ color: 'black' , cursor:"pointer"  }}
     >
       <div className="ProfileImages">
-        <img src={authData?.data?.coverImage ?? Cover} alt="" />
-        <img src={authData?.data?.profileImage ?? Profile} alt="" />
+        <img src={`${appConfig.awsBucketUrl}/${authData?.data?.coverImage}` ?? Cover} alt="" />
+        <img src={`${appConfig.awsBucketUrl}/${authData?.data?.profileImage}` ?? Profile}  alt="" />
       </div>
 
       <div className="ProfileName">
@@ -36,7 +37,7 @@ const ProfileCard = () => {
       </div>
 
       <div className="followStatus">
-        <hr />
+        <hr />    
         <div>
           <div className="follow">
             <span>{authData?.data?.followings}</span>

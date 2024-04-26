@@ -8,8 +8,8 @@ export const logIn=(formData)=>async (dispatch)=>{
         const {data}=await AuthApi.logIn(formData)
         dispatch({type:"AUTH_SUCCESS",data:data})
     } catch (error) {
-       console.log(error);
-       dispatch({type:"AUTH_FAIL" })
+       console.log(error,"loginError");
+       dispatch({type:"AUTH_FAIL",data:error?.response?.data })
     }
 }
 
@@ -22,7 +22,7 @@ export const signUp=(formData)=>async (dispatch)=>{
         dispatch({type:"AUTH_SUCCESS",data:data})
     } catch (error) {
        console.log(error);
-       dispatch({type:"AUTH_FAIL" })
+       dispatch({type:"AUTH_FAIL",data:error })
     }
 }
 

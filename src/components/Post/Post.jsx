@@ -31,8 +31,8 @@ const Post = ({ data }) => {
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1)
   }
   return (
-    <div onClick={handleSelect} className="Post">
-      <img src={`${appConfig.awsBucketUrl}/${data?.image}`} alt="story" />
+    <div  className="Post">
+      <img onClick={handleSelect} src={`${appConfig.awsBucketUrl}/${data?.image}`} alt="story" />
 
       <div className="postReact">
         <img

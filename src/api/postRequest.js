@@ -1,13 +1,29 @@
 import axios from "axios";
 import { getLocalStorageItem } from "../utils/appUtils";
 import { appConfig } from "../config/appConfig";
+import { path } from "../paths/paths";
 
 const API = axios.create({ baseURL: appConfig.apiUrl });
 
 export const getAllPosts = async () => {
   try {
     const userData = getLocalStorageItem("profile");
+    if(!userData){
+      window.location.href=path.auth
+    }
     return await API.get("/post", {
+      headers: {
+        Authorization: `Bearer ${userData?.data?.token}` // Include the Bearer token in the Authorization header
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getPostsByUser = async () => {
+  try {
+    const userData = getLocalStorageItem("profile");
+    return await API.get("/post/user", {
       headers: {
         Authorization: `Bearer ${userData?.data?.token}` // Include the Bearer token in the Authorization header
       }

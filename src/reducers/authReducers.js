@@ -1,32 +1,42 @@
+// import { toast } from "react-toastify";
+
 const authReducer = (
-  state = { authData: null, loading: false, error: false },
+  state = { authData: null, loading: false, error: null, isError: false },
   action
 ) => {
   switch (action.type) {
     case "AUTH_START":
-      return { ...state, loading: true, error: false };
+      return { ...state, loading: true, isError: false };
 
     case "AUTH_SUCCESS":
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
-      return { ...state, authData: action.data, loading: false, error: false };
+      return {
+        ...state,
+        authData: action.data,
+        loading: false,
+        isError: false,
+        error:null
+      };
 
     case "AUTH_FAIL":
-      return { ...state, loading: false, error: true };
+      // console.log(action?.data, "fail");
+      // toast.error(action?.data?.message);
+      return { ...state, loading: false, isError: true, error: action?.data };
 
     case "UPDATING_START":
-      return { ...state, updateLoading: true, error: false };
+      return { ...state, updateLoading: true, isError: false };
 
     case "UPDATING_SUCCESS":
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
       return {
         ...state,
         updateLoading: false,
-        error: false,
+        isError: false,
         authData: action.data
       };
 
     case "UPDATING_FAIL":
-      return { ...state, updateLoading: false, error: true };
+      return { ...state, updateLoading: false, isError: true };
 
     case "FOLLOW_USER":
       return {
@@ -55,9 +65,23 @@ const authReducer = (
           }
         }
       };
+      case "PROFILE_START":
+        return { ...state, updateLoading: true, isError: false };
+
+        case "PROFILE_SUCCESS":
+          localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+          return {
+            ...state,
+            updateLoading: false,
+            isError: false,
+            authData: action.data,
+            error:null
+          };
+          case "PROFILE_FAIL":
+          return { ...state, updateLoading: false, isError: true,error:action?.data };
     case "LOGOUT":
       localStorage.removeItem("profile");
-      return { ...state, authData: null, loading: false, error: false };
+      return { ...state, authData: null, loading: false, isError: false };
 
     default:
       return state;

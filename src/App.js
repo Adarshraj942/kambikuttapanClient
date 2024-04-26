@@ -1,3 +1,4 @@
+// import {ToastContainer} from "react-toastify";
 import "./App.css";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/home/Home";
@@ -18,6 +19,7 @@ function App() {
         <Route path={path.profile} element={<Profile />} />
         <Route path={path.singlePost} element={<SinglePost />} />
       </Routes>
+      {/* <ToastContainer limit={1}/> */}
     </div>
   );
 }

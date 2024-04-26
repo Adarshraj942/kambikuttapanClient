@@ -7,26 +7,35 @@ import back from '../../img/wp4082523.webp'
 import './Home.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllPosts } from '../../actions/post.actions'
+import { useNavigate } from 'react-router-dom'
+import { path } from '../../paths/paths'
+import { getLocalStorageItem } from '../../utils/appUtils'
 const Home = () => {
-  const authData = useSelector((state) => state.authReducer.authData)
+  const userData = getLocalStorageItem('profile')
+  const postData = useSelector((state) => state.postReducer.posts)
+
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   useEffect(async () => {
     const fetchData = async () => {
       try {
-        await dispatch(getAllPosts())
-        
+        if (!userData) {
+          navigate(path.auth)
+        } else {
+          await dispatch(getAllPosts())
+        }
       } catch (error) {
         console.error('Error fetching posts:', error)
       }
     }
 
     fetchData()
-  }, [authData])
+  }, [userData])
 
   return (
     <div className="Home" style={{ backgroundImage: `URL(${back})` }}>
       <ProfileSide />
-      <PostSide />
+      <PostSide postData={postData} />
       <RightSide />
     </div>
   )

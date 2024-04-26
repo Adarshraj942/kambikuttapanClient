@@ -7,6 +7,8 @@ import authback from '../../img/authback.png'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
 import { logIn } from '../../actions/auth.actions'
+// import { toast } from 'react-toastify'
+// import 'react-toastify/dist/ReactToastify.css'
 // import { NavLink } from 'react-router-dom'
 // import { path } from '../../paths/paths'
 
@@ -44,10 +46,12 @@ function LogIn({ setIsLogin }) {
     username: '',
     password: '',
   })
-  const authData = useSelector((state) => state.authReducer.authData)
+  const [errorMessage, setErrorMessage] = useState('')
+  const { authData, error, isError } = useSelector((state) => state.authReducer)
 
   const loginSubmit = async (e) => {
     e.preventDefault()
+    setErrorMessage('')
     await dispatch(
       logIn({
         email: loginData?.username,
@@ -62,15 +66,28 @@ function LogIn({ setIsLogin }) {
   // )
 
   useEffect(() => {
-    if (authData?.data) {
+    if (authData?.data && !isError) {
       navigate(path.home)
     }
   }, [authData])
+  // useEffect(()=>{
+  //   setErrorMessage("")
+  // })
+
+  useEffect(() => {
+    if (isError && error != null) {
+      // toast.error(error?.message)
+      setErrorMessage(error?.message)
+    } else {
+      // setErrorMessage('')
+    }
+  }, [isError, error])
 
   return (
-    <div className="a-right" style={{ color: 'black' }}>
+    <div className="a-right" style={{ color: 'black', }}>
       <form onSubmit={loginSubmit} className="infoForm authForm">
         <h3>Log In</h3>
+        <h4 style={{color:"red"}}>{errorMessage}</h4>
 
         <div>
           <input
@@ -80,12 +97,13 @@ function LogIn({ setIsLogin }) {
             name="username"
             required
             id="username"
-            onChange={(e) =>
+            onChange={(e) => {
               setLoginData({
                 ...loginData,
                 username: e.target?.value,
               })
-            }
+              setErrorMessage('')
+            }}
           />
         </div>
 
@@ -97,12 +115,13 @@ function LogIn({ setIsLogin }) {
             name="password"
             required
             id="password"
-            onChange={(e) =>
+            onChange={(e) => {
               setLoginData({
                 ...loginData,
                 password: e.target?.value,
               })
-            }
+              setErrorMessage('')
+            }}
           />
         </div>
 

@@ -16,11 +16,7 @@ const RightSide = () => {
 
   const isAuthor = authData?.data?.role === UserRole.AUTHOR
 
-  useEffect(()=>{
-    console.log(isUploaded,"successsss");
-if(isUploaded){
-}
-  },[isUploaded])
+
   return (
     <div className="RightSide">
       <div className="navIcons">
@@ -34,7 +30,7 @@ if(isUploaded){
       <TrendCard />
 
       <button
-        style={{ color: 'black', display: `${isAuthor ? 'block' : 'none'}` }}
+        style={{ color: 'black', display: `${!isAuthor ? 'block' : 'none'}` }}
         className="button r-button"
         onClick={() => setModalOpened(true)}
       >

@@ -3,17 +3,28 @@ import Cover from '../../img/cover.jpg'
 import Profile from '../../img/profileImg.jpg'
 import './ProfileCard.css'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { path } from '../../paths/paths'
 
 const ProfileCard = () => {
+  const navigate = useNavigate()
   const authData = useSelector((state) => state.authReducer.authData)
   const ProfilePage = true
+
+  const handleClick = () => {
+    navigate(path.profile)
+  }
 
   useEffect(() => {
     if (!authData?.data) {
     }
   }, [authData])
   return (
-    <div className="ProfileCard" style={{ color: 'black' }}>
+    <div
+      onClick={handleClick}
+      className="ProfileCard"
+      style={{ color: 'black' , cursor:"pointer"  }}
+    >
       <div className="ProfileImages">
         <img src={authData?.data?.coverImage ?? Cover} alt="" />
         <img src={authData?.data?.profileImage ?? Profile} alt="" />

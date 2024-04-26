@@ -10,7 +10,7 @@ const postReducer = (
   },
   action
 ) => {
-  console.log(action,"actio ");
+  console.log(action, "actio ");
   switch (action.type) {
     case "UPLOAD_START":
       return { ...state, error: false, uploading: true };
@@ -34,7 +34,6 @@ const postReducer = (
     case "FETCH_START":
       return { ...state, error: false, loading: true };
     case "FETCH_SUCCESS":
-    
       return {
         ...state,
         loading: false,

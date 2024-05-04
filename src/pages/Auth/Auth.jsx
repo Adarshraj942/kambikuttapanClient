@@ -24,7 +24,7 @@ const Auth = () => {
         display: 'flex',
         justifyContent: 'center',
         backgroundRepeat: 'no-repeat',
-        boxShadow: "inset 0 0 0 100vmax rgba(0,0,0,.3)",
+        boxShadow: "inset 0 0 0 100vmax rgba(0,0,0,.4)",
       }}
     >
       <div className="a-left">

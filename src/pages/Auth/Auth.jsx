@@ -24,6 +24,7 @@ const Auth = () => {
         display: 'flex',
         justifyContent: 'center',
         backgroundRepeat: 'no-repeat',
+        boxShadow: "inset 0 0 0 100vmax rgba(0,0,0,.3)",
       }}
     >
       <div className="a-left">
@@ -88,7 +89,6 @@ function LogIn({ setIsLogin }) {
       <form onSubmit={loginSubmit} className="infoForm authForm">
         <h3>Log In</h3>
         <h4 style={{color:"red"}}>{errorMessage}</h4>
-
         <div>
           <input
             type="text"

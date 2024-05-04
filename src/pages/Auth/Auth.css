@@ -6,6 +6,12 @@
     gap: 4rem;
     position: relative;
   }
+
+  @media screen and (width<=480px){
+    .Auth{
+      flex-direction: column;
+    }
+  }
   
   .Auth > div {
     display: flex;

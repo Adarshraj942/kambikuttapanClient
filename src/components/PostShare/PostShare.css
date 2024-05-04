@@ -40,6 +40,10 @@
     .postOptions {
         justify-content: center;
     }
+
+    .PostShare{
+      margin-top: 25px;
+    }
 }
 
 .option {

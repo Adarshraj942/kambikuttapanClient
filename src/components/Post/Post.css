@@ -22,7 +22,9 @@
     gap: 1.5rem;
 }
 .detail{
-    color:black
+    color:black;
+    display: flex;
+    column-gap: 5px;
 }
 .likeImg{
     cursor: pointer;

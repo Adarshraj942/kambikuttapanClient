@@ -1,6 +1,18 @@
-.Home{
+/* .Home{
     position: relative;
     display: grid;
     grid-template-columns: 18rem auto 20rem;
     gap: 1rem;
+} */
+
+.Home {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+@media screen and (width<=480px) {
+  .Home {
+    flex-wrap: wrap;
+  }
 }

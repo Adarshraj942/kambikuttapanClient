@@ -50,10 +50,10 @@ const Post = ({ data }) => {
       </span>
 
       <div className="detail">
-        <span>
+        <p className='truncate'>
           <b>{data?.title}</b>
-        </span>
-        <span> {data?.summary}</span>
+        </p>
+        <p className="truncate">{data?.summary}</p>
       </div>
     </div>
   )

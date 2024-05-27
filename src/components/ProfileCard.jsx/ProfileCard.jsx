@@ -5,7 +5,7 @@ import './ProfileCard.css'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
-import { appConfig } from '../../config/appConfig';
+import { appConfig } from '../../config/appConfig'
 
 const ProfileCard = () => {
   const navigate = useNavigate()
@@ -18,17 +18,29 @@ const ProfileCard = () => {
 
   useEffect(() => {
     if (!authData?.data) {
+      navigate(path.auth)
     }
   }, [authData])
   return (
     <div
       onClick={handleClick}
       className="ProfileCard"
-      style={{ color: 'black' , cursor:"pointer"  }}
+      style={{ color: 'black', cursor: 'pointer' }}
     >
       <div className="ProfileImages">
-        <img src={`${appConfig.awsBucketUrl}/${authData?.data?.coverImage}` ?? Cover} alt="" />
-        <img src={`${appConfig.awsBucketUrl}/${authData?.data?.profileImage}` ?? Profile}  alt="" />
+        <img
+          src={
+            `${appConfig.awsBucketUrl}/${authData?.data?.coverImage}` ?? Cover
+          }
+          alt=""
+        />
+        <img
+          src={
+            `${appConfig.awsBucketUrl}/${authData?.data?.profileImage}` ??
+            Profile
+          }
+          alt=""
+        />
       </div>
 
       <div className="ProfileName">
@@ -37,15 +49,15 @@ const ProfileCard = () => {
       </div>
 
       <div className="followStatus">
-        <hr />    
+        <hr />
         <div>
           <div className="follow">
-            <span>{authData?.data?.followings}</span>
+            <span>{authData?.data?.followings?.length ?? 0}</span>
             <span>Followings</span>
           </div>
           <div className="vl"></div>
           <div className="follow">
-            <span>{authData?.data?.followers}</span>
+            <span>{authData?.data?.followers?.length ?? 0}</span>
             <span>Followers</span>
           </div>
 
@@ -53,7 +65,7 @@ const ProfileCard = () => {
             <>
               <div className="vl"></div>
               <div className="follow">
-                <span>{authData?.data?.posts}</span>
+                <span>{authData?.data?.posts?.length ?? 0}</span>
                 <span>Posts</span>
               </div>
             </>

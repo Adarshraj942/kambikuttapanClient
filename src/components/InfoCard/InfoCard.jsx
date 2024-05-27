@@ -1,16 +1,32 @@
-import React, { useState } from "react";
-import "./InfoCard.css";
-import { UilPen } from "@iconscout/react-unicons";
-import ProfileModal from "../ProfileModal.jsx/ProfileModal";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import './InfoCard.css'
+import { UilPen } from '@iconscout/react-unicons'
+import ProfileModal from '../ProfileModal.jsx/ProfileModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../../actions/auth.actions'
+import { findUserProfile } from '../../actions/user.actions'
+import { path } from '../../paths/paths';
 
 const InfoCard = () => {
-  const [modalOpened, setModalOpened] = useState(false);
+  const [modalOpened, setModalOpened] = useState(false)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const authData = useSelector((state) => state.authReducer.authData)
+  const logoutClick = async () => {
+    await dispatch(logout())
+    navigate(path.auth)
+  }
+
+  useEffect(() => {
+    // alert("happy")
+    dispatch(findUserProfile())
+  }, [])
 
   return (
-    <div className="InfoCard" style={{color:"black"}}>
+    <div className="InfoCard" style={{ color: 'black' }}>
       <div className="infoHead">
         <h4>Your Info</h4>
         <div>
@@ -60,9 +76,11 @@ const InfoCard = () => {
         <span>{authData?.data?.phoneNumber}</span>
       </div>
 
-      <button className="button logout-button">Logout</button>
+      <button onClick={logoutClick} className="button logout-button">
+        Logout
+      </button>
     </div>
-  );
-};
+  )
+}
 
-export default InfoCard;
+export default InfoCard

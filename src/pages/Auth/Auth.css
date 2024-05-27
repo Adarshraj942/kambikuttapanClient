@@ -52,6 +52,7 @@
   
   .Webname>h6{
       font-size: 0.85rem;
+      color: #d9af67c9;
   }
 
 
@@ -70,7 +71,7 @@
     background-color: var(--inputColor);
     border-radius: 8px;
     padding: 20px;
-    flex:1;
+    flex:2;
   }
   .infoForm>div{
     display: flex;

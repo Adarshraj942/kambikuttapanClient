@@ -6,7 +6,7 @@ import authback from '../../img/authback.png'
 // import { login } from '../../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
-import { logIn } from '../../actions/auth.actions'
+import { logIn,signUp } from '../../actions/auth.actions'
 // import { toast } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
 // import { NavLink } from 'react-router-dom'
@@ -14,6 +14,7 @@ import { logIn } from '../../actions/auth.actions'
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('')
   return (
     <div
       className="Auth"
@@ -24,30 +25,35 @@ const Auth = () => {
         display: 'flex',
         justifyContent: 'center',
         backgroundRepeat: 'no-repeat',
-        boxShadow: "inset 0 0 0 100vmax rgba(0,0,0,.4)",
+        boxShadow: 'inset 0 0 0 100vmax rgba(0,0,0,.4)',
       }}
     >
       <div className="a-left">
         <img src={Logo} alt="" />
         <div className="Webname">
           <h1>KAMBI KUTTAPAN</h1>
-          <h6>Explore the ideas throughout the world</h6>
+          <h6>Explore the ideas throughout the worlds</h6>
         </div>
       </div>
 
-      {isLogin ? <LogIn setIsLogin={setIsLogin} /> : <SignUp />}
+      {isLogin ? (
+        <LogIn setIsLogin={setIsLogin} errorMessage={errorMessage} setErrorMessage={setErrorMessage} />
+      ) : (
+        <SignUp setIsLogin={setIsLogin} errorMessage={errorMessage} setErrorMessage={setErrorMessage} />
+      )}
     </div>
   )
 }
-function LogIn({ setIsLogin }) {
+function LogIn({ setIsLogin ,errorMessage, setErrorMessage }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [loginData, setLoginData] = useState({
-    username: '',
+    email: '',
     password: '',
   })
-  const [errorMessage, setErrorMessage] = useState('')
+
+
   const { authData, error, isError } = useSelector((state) => state.authReducer)
 
   const loginSubmit = async (e) => {
@@ -55,7 +61,7 @@ function LogIn({ setIsLogin }) {
     setErrorMessage('')
     await dispatch(
       logIn({
-        email: loginData?.username,
+        email: loginData?.email,
         password: loginData?.password,
       }),
     )
@@ -71,32 +77,32 @@ function LogIn({ setIsLogin }) {
       navigate(path.home)
     }
   }, [authData])
-  // useEffect(()=>{
-  //   setErrorMessage("")
-  // })
+  useEffect(()=>{
+    setErrorMessage("")
+  })
 
   useEffect(() => {
     if (isError && error != null) {
       // toast.error(error?.message)
       setErrorMessage(error?.message)
     } else {
-      // setErrorMessage('')
+      setErrorMessage('')
     }
   }, [isError, error])
 
   return (
-    <div className="a-right" style={{ color: 'black', }}>
+    <div className="a-right" style={{ color: 'black' }}>
       <form onSubmit={loginSubmit} className="infoForm authForm">
         <h3>Log In</h3>
-        <h4 style={{color:"red"}}>{errorMessage}</h4>
+        <h4 style={{ color: 'red',display:"none",...(errorMessage&&{display:"block"}) }}>{errorMessage}</h4>
         <div>
           <input
-            type="text"
-            placeholder="Username"
+            type="email"
+            placeholder="Email"
             className="infoInput"
-            name="username"
+            name="email"
             required
-            id="username"
+            id="email"
             onChange={(e) => {
               setLoginData({
                 ...loginData,
@@ -144,70 +150,175 @@ function LogIn({ setIsLogin }) {
     </div>
   )
 }
-function SignUp() {
+function SignUp({ setIsLogin ,errorMessage,setErrorMessage }) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const { authData, error, isError } = useSelector((state) => state.authReducer)
+
+  const [signUpdata,setSignUpData]=useState({
+    firstName:"",
+    lastName:"",
+    userName:"",
+    password:"",
+    phoneNumber:"",
+    email:""
+  })
+
+  const handleSignUp = async (e)=>{
+    e.preventDefault()
+    await dispatch(
+      signUp({
+        ...signUpdata
+      }),
+    )
+console.log(signUpdata,"signUPdata");
+  }
+
+  useEffect(() => {
+    if (authData?.data && !isError) {
+      navigate(path.home)
+    }
+  }, [authData])
+  useEffect(()=>{
+    setErrorMessage("")
+  })
+
+  useEffect(() => {
+    if (isError && error != null) {
+      // toast.error(error?.message)
+      setErrorMessage(error?.message)
+    } else {
+      setErrorMessage('')
+    }
+  }, [isError, error])
   return (
-    <div className="a-right">
-      <form className="infoForm authForm">
-        <h3>Sign up</h3>
+    <div className="a-right" style={{ color: 'black' }}>
+    <form onSubmit={handleSignUp} className="infoForm authForm">
+      <h3>SignUp</h3>
+      {/* <h4 style={{ color: 'red' }}>{errorMessage}</h4> */}
+    
+      <div >
+        <input
+          type="text"
+          placeholder="FirstName"
+          className="infoInput"
+          name="firstName"
+          required
+          id="firstName"
+          onChange={(e) => {
+            setSignUpData({
+              ...signUpdata,
+              firstName: e.target?.value,
+            })
+            setErrorMessage('')
+          }}
+        />
+      </div>
+      <div >
+        <input
+          type="text"
+          placeholder="LastName"
+          className="infoInput"
+          name="lastName"
+          required
+          id="lastName"
+          onChange={(e) => {
+            setSignUpData({
+              ...signUpdata,
+              lastName: e.target?.value,
+            })
+            setErrorMessage('')
+          }}
+        />
+      </div>
+      <div >
+        <input
+          type="text"
+          placeholder="UserName"
+          className="infoInput"
+          name="userName"
+          required
+          id="userName"
+          onChange={(e) => {
+            setSignUpData({
+              ...signUpdata,
+              userName: e.target?.value,
+            })
+            setErrorMessage('')
+          }}
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="Email"
+          className="infoInput"
+          name="email"
+          required
+          id="email"
+          onChange={(e) => {
+            setSignUpData({
+              ...signUpdata,
+              email: e.target?.value,
+            })
+            setErrorMessage('')
+          }}
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="PhoneNumber"
+          className="infoInput"
+          name="phoneNumber"
+          required
+          id="phoneNumber"
+          onChange={(e) => {
+            setSignUpData({
+              ...signUpdata,
+              phoneNumber: e.target?.value,
+            })
+            setErrorMessage('')
+          }}
+        />
+      </div>
 
-        <div>
-          <input
-            type="text"
-            placeholder="First Name"
-            className="infoInput"
-            name="firstname"
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            className="infoInput"
-            name="lastname"
-          />
-        </div>
+      <div>
+        <input
+          type="password"
+          className="infoInput"
+          placeholder="Password"
+          name="password"
+          required
+          id="password"
+          onChange={(e) => {
+            setSignUpData({
+              ...signUpdata,
+              password: e.target?.value,
+            })
+            setErrorMessage('')
+          }}
+        />
+      </div>
 
-        <div>
-          <input
-            type="text"
-            className="infoInput"
-            name="username"
-            placeholder="Usernames"
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            className="infoInput"
-            name="password"
-            placeholder="Password"
-          />
-          <input
-            type="text"
-            className="infoInput"
-            name="confirmpass"
-            placeholder="Confirm Password"
-          />
-        </div>
-
-        <div>
-          <span style={{ fontSize: '12px' }}>
-            Don't have an account ?
-            <span
-              onClick={(e) => {
-                e.preventDefault()
-                // setIsLogin(false)
-              }}
-              className="linkText"
-            >
-              SignUp
-            </span>
+      <div>
+        <span style={{ fontSize: '12px' }}>
+          Already have an account ?
+          <span
+            onClick={(e) => {
+              e.preventDefault()
+              setIsLogin(true)
+            }}
+            className="linkText"
+          >
+            SignIn
           </span>
-        </div>
-        <button className="button infoButton" type="submit">
-          SignUp
-        </button>
-      </form>
-    </div>
+        </span>
+        <button className="button infoButton">SignUp</button>
+      </div>
+    </form>
+  </div>
   )
 }
 

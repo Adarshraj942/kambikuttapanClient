@@ -9,7 +9,10 @@ const authReducer = (
       return { ...state, loading: true, isError: false };
 
     case "AUTH_SUCCESS":
+      console.log(action?.data,"action.data");
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+      localStorage.setItem("token", action?.data?.data?.token);
+      
       return {
         ...state,
         authData: action.data,
@@ -28,6 +31,7 @@ const authReducer = (
 
     case "UPDATING_SUCCESS":
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+      localStorage.setItem("token", action?.data?.data?.token);
       return {
         ...state,
         updateLoading: false,
@@ -70,6 +74,8 @@ const authReducer = (
 
         case "PROFILE_SUCCESS":
           localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+
+          console.log(action?.data,"actionDAta");
           return {
             ...state,
             updateLoading: false,
@@ -81,6 +87,8 @@ const authReducer = (
           return { ...state, updateLoading: false, isError: true,error:action?.data };
     case "LOGOUT":
       localStorage.removeItem("profile");
+      localStorage.removeItem("token");
+
       return { ...state, authData: null, loading: false, isError: false };
 
     default:

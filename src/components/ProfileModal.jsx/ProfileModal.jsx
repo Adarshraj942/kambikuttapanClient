@@ -35,7 +35,7 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
       setImage({
         ...image,
         [event.target.name]: URL.createObjectURL(img) ?? '',
-      })
+      }) 
       console.log(image, 'image', event.target.name)
       // setImage(URL.createObjectURL(img))
 

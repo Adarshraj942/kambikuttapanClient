@@ -65,7 +65,7 @@ function LogIn({ setIsLogin ,errorMessage, setErrorMessage }) {
         password: loginData?.password,
       }),
     )
-    console.log(loginData)
+    console.log(loginData,"loginData")
   }
 
   // const {  } = useSelector(
@@ -104,9 +104,10 @@ function LogIn({ setIsLogin ,errorMessage, setErrorMessage }) {
             required
             id="email"
             onChange={(e) => {
+              console.log(e.target?.value,"value");
               setLoginData({
                 ...loginData,
-                username: e.target?.value,
+                email: e.target?.value,
               })
               setErrorMessage('')
             }}

@@ -1,6 +1,8 @@
 import * as PostApi from "../api/postRequest";
 
 export const getAllPosts = () => async (dispatch) => {
+
+  console.log("calling");
   dispatch({ type: "FETCH_START" });
   try {
     const { data } = await PostApi.getAllPosts();
@@ -35,7 +37,6 @@ export const createPost = (postData) => async (dispatch) => {
   dispatch({ type: "UPLOAD_START" });
   try {
     const { data } = await PostApi.createPost(postData);
-    console.log(data, "post data success");
     dispatch({ type: "UPLOAD_SUCCESS", data: data?.data });
   } catch (error) {
     console.log(error?.message, "errorrorro");

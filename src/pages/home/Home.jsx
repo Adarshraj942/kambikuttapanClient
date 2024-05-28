@@ -19,10 +19,12 @@ const Home = () => {
   const navigate = useNavigate()
   useEffect(async () => {
     const fetchData = async () => {
+      console.log("hello");
       try {
         if (!userData) {
           navigate(path.auth)
         } else {
+          console.log(userData,"userDatasssss");
           await dispatch(getAllPosts())
           await dispatch(findUserProfile())
         }

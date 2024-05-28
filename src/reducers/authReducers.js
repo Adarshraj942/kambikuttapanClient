@@ -9,16 +9,19 @@ const authReducer = (
       return { ...state, loading: true, isError: false };
 
     case "AUTH_SUCCESS":
-      console.log(action?.data,"action.data");
+      // console.log(action?.data,"action.data");
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
-      localStorage.setItem("token", action?.data?.data?.token);
-      
+      localStorage.setItem(
+        "token",
+        JSON.stringify(action?.data?.data?.token )
+      );
+
       return {
         ...state,
         authData: action.data,
         loading: false,
         isError: false,
-        error:null
+        error: null
       };
 
     case "AUTH_FAIL":
@@ -69,22 +72,27 @@ const authReducer = (
           }
         }
       };
-      case "PROFILE_START":
-        return { ...state, updateLoading: true, isError: false };
+    case "PROFILE_START":
+      return { ...state, updateLoading: true, isError: false };
 
-        case "PROFILE_SUCCESS":
-          localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+    case "PROFILE_SUCCESS":
+      localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
 
-          console.log(action?.data,"actionDAta");
-          return {
-            ...state,
-            updateLoading: false,
-            isError: false,
-            authData: action.data,
-            error:null
-          };
-          case "PROFILE_FAIL":
-          return { ...state, updateLoading: false, isError: true,error:action?.data };
+      // console.log(action?.data,"actionDAta");
+      return {
+        ...state,
+        updateLoading: false,
+        isError: false,
+        authData: action.data,
+        error: null
+      };
+    case "PROFILE_FAIL":
+      return {
+        ...state,
+        updateLoading: false,
+        isError: true,
+        error: action?.data
+      };
     case "LOGOUT":
       localStorage.removeItem("profile");
       localStorage.removeItem("token");

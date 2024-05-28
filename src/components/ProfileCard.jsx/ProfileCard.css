@@ -6,6 +6,7 @@
     gap: 1rem;
     overflow-x: clip;
     background: var(--cardColor);
+    min-width: 16rem;
 }
 
 .ProfileImages{
@@ -19,7 +20,7 @@
 .ProfileImages>img:nth-of-type(1){
     width: 100%;
     border-radius: 1.5rem;
-    max-height: 21rem;
+    max-height: 16rem;
 }
 
 .ProfileImages>img:nth-of-type(2)
@@ -27,8 +28,10 @@
     width: 12rem;
     border-radius: 50%;
     position: absolute;
-    bottom: -3rem;
+    bottom: -4rem;
     box-shadow: var(--profileShadow);
+    max-width: 12rem;
+    max-height:12rem;
 }
 
 .ProfileName{

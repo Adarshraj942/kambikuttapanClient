@@ -20,9 +20,7 @@ const FollowersCard = () => {
       try {
         if (!authData) {
           navigate(path.auth)
-        } else {
-          await dispatch(findUserProfile())
-        }
+        } 
       } catch (error) {
         console.error('Error fetching posts:', error)
       }

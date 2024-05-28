@@ -10,7 +10,6 @@ const postReducer = (
   },
   action
 ) => {
-  console.log(action, "actio ");
   switch (action.type) {
     case "UPLOAD_START":
       return { ...state, error: false, uploading: true };

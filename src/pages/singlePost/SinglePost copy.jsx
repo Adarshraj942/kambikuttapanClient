@@ -45,7 +45,6 @@ const SinglePost = (PostsData) => {
             src={left}
             style={{ width: "20rem", marginTop: "1rem" }}
             alt=""
-            className="soldier-1"
           />
         </div>
         {/* scroll content */}
@@ -55,8 +54,8 @@ const SinglePost = (PostsData) => {
               // backgroundColor: "black",
               height: "100vh",
               paddingTop: "10rem",
-              // paddingLeft: "10rem",
-              // paddingRight: "10rem",
+              paddingLeft: "10rem",
+              paddingRight: "10rem",
               backgroundImage: `URL(${scroll})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
@@ -65,26 +64,33 @@ const SinglePost = (PostsData) => {
           >
             <img src={PostsData[0]?.img} alt="" />
 
-            <div class="post-reactions">
-              
-              <div className="postReact-single">
-                <img src={PostsData[0]?.liked ? Heart : NotLike} alt="" />
-                <img src={Comment} alt="" />
-                <img src={Share} alt="" />
-              </div>
-
-              <p
-                style={{
-                  color: "var(--gray)",
-                  fontSize: "12px",
-                }}
-              >
-                {PostsData[0]?.likes} likes
-              </p>
-
+            <div
+              className="postReact"
+              style={{ paddingLeft: "5rem", paddingRight: "5rem" }}
+            >
+              <img src={PostsData[0]?.liked ? Heart : NotLike} alt="" />
+              <img src={Comment} alt="" />
+              <img src={Share} alt="" />
             </div>
 
-            <div className="singlepost-detail">
+            <span
+              style={{
+                color: "var(--gray)",
+                fontSize: "12px",
+              }}
+            >
+              {PostsData[0]?.likes} likes
+            </span>
+
+            <div
+              className="detail"
+              style={{
+                maxHeight: "75vh",
+                overflowY: "scroll",
+                paddingLeft: "5rem",
+                paddingRight: "5rem",
+              }}
+            >
               <span>
                 <b>{PostsData[0]?.name}</b>
               </span>
@@ -207,7 +213,7 @@ const SinglePost = (PostsData) => {
         </div>
 
         {/* soldier image right */}
-        <div style={{ backgroundColor: "" }} className="soldier-2">
+        <div style={{ backgroundColor: "" }}>
           <img src={right} style={{ width: "20rem" }} alt="" />
         </div>
       </div>

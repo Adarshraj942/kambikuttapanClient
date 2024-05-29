@@ -47,7 +47,7 @@ function CommentModel({ modalOpened, setModalOpened, comments, postId }) {
       }
       overlayOpacity={0.55}
       overlayBlur={3}
-      size="62%"
+      size="60%"
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >

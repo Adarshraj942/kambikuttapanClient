@@ -114,3 +114,23 @@ export const createPost = async (postData) => {
     console.log(error);
   }
 };
+export const createPayment = async (postData) => {
+  try {
+    const token = getLocalStorageItem("token");
+    // const token = userData?.data?.token;
+
+    return await API.post(
+      `payment`,
+      {
+        ...postData
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // Include the Bearer token in the Authorization header
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

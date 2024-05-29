@@ -56,7 +56,7 @@ function CommentModel({ modalOpened, setModalOpened, comments, postId }) {
           <div
             style={{ width: '100%', justifyContent: 'center', display: 'flex' }}
           >
-            <h3>comments {visibleItems}</h3>
+            <h3>comments</h3>
           </div>
           <div className="main-content">
             {commentData?.slice(0, visibleItems)?.map((comment, index) => {

@@ -9,18 +9,20 @@ import { likeAndCommentPost } from '../../api/postRequest'
 import { appConfig } from '../../config/appConfig'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
+import CommentModel from '../CommentModal/CommentModel'
 
 const Post = ({ data }) => {
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.authReducer.authData)
   const [liked, setLiked] = useState(data?.isLiked)
   const [likes, setLikes] = useState(data?.likes)
+  const [modalOpened, setModalOpened] = useState(false)
 
   const handleSelect = () => {
     if (!data?.isFree && !data?.isPaid) {
       alert('need to pay')
     } else {
-      navigate(path.singlePost, { state: { postId: data?._id } });
+      navigate(path.singlePost, { state: { postId: data?._id } })
     }
   }
 
@@ -31,8 +33,12 @@ const Post = ({ data }) => {
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1)
   }
   return (
-    <div  className="Post">
-      <img onClick={handleSelect} src={`${appConfig.awsBucketUrl}/${data?.image}`} alt="story" />
+    <div className="Post">
+      <img
+        onClick={handleSelect}
+        src={`${appConfig.awsBucketUrl}/${data?.image}`}
+        alt="story"
+      />
 
       <div className="postReact">
         <img
@@ -41,7 +47,7 @@ const Post = ({ data }) => {
           alt=""
           onClick={handleLike}
         />
-        <img src={Comment} alt="" />
+        <img onClick={() => setModalOpened(true)} src={Comment} alt="" />
         <img src={Share} alt="" />
       </div>
 
@@ -50,10 +56,16 @@ const Post = ({ data }) => {
       </span>
 
       <div className="detail">
-        <p className='truncate'>
+        <p className="truncate">
           <b>{data?.title}</b>
         </p>
         <p className="truncate">{data?.summary}</p>
+        <CommentModel
+          modalOpened={modalOpened}
+          setModalOpened={setModalOpened}
+          comments={data?.comments}
+          postId={data?._id}
+        />
       </div>
     </div>
   )

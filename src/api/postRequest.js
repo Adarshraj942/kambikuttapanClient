@@ -9,7 +9,7 @@ export const getAllPosts = async () => {
   try {
     const token = getLocalStorageItem("token");
     const userData = getLocalStorageItem("profile");
-    
+
     // const token = userData?.data?.token;
     // alert("calling")
     console.log(token, "tokensssss");
@@ -63,6 +63,26 @@ export const likeAndCommentPost = async (id, userId) => {
       {
         userId: userId,
         like: true
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // Include the Bearer token in the Authorization header
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const commentPost = async (id, comment) => {
+  try {
+    const token = getLocalStorageItem("token");
+    // const token = userData?.data?.token;
+
+    return await API.patch(
+      `post/user/${id}`,
+      {
+        comment: comment
       },
       {
         headers: {

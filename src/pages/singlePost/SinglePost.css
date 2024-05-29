@@ -1,9 +1,14 @@
 .SinglePost {
   position: relative;
-  display: grid;
+  /* display: grid;
   grid-template-columns: 18rem auto 20rem;
-  gap: 1rem;
+  gap: 1rem; */
   padding: 1rem;
+}
+
+.single-post-container{
+  display: flex;
+  column-gap: 10px;
 }
 
 .navIcons {

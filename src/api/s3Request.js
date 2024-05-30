@@ -6,8 +6,8 @@ const API = axios.create({ baseURL: appConfig.apiUrl });
 
 export const getPreSignedUrl = async (fileData) => {
   try {
-    const userData = getLocalStorageItem("profile");
-    const token = userData?.data?.token;
+    const token = getLocalStorageItem("token");
+    // const token = userData?.data?.token;
 
     return await API.post(
       `s3url`,

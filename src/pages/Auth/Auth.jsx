@@ -162,7 +162,7 @@ function SignUp({ setIsLogin ,errorMessage,setErrorMessage }) {
     lastName:"",
     userName:"",
     password:"",
-    phoneNumber:"",
+    // phoneNumber:"",
     email:""
   })
 
@@ -267,13 +267,13 @@ console.log(signUpdata,"signUPdata");
           }}
         />
       </div>
-      <div>
+      {/* <div>
         <input
           type="text"
           placeholder="PhoneNumber"
           className="infoInput"
           name="phoneNumber"
-          required
+          // required
           id="phoneNumber"
           onChange={(e) => {
             setSignUpData({
@@ -283,7 +283,7 @@ console.log(signUpdata,"signUPdata");
             setErrorMessage('')
           }}
         />
-      </div>
+      </div> */}
 
       <div>
         <input

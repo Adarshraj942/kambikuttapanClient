@@ -16,7 +16,8 @@ const InfoCard = () => {
 
   const authData = useSelector((state) => state.authReducer.authData)
   const logoutClick = async () => {
-    await dispatch(logout())
+    // await dispatch(logout())
+    await localStorage.clear()
     navigate(path.auth)
   }
 

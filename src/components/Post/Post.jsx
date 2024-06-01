@@ -61,7 +61,7 @@ const Post = ({ data }) => {
       navigate(path.singlePost, { state: { postId: data?._id } })
     }
   }
-
+ 
   const handleLike = () => {
     setLiked((prev) => !prev)
     likeAndCommentPost(data?._id, user?._id)

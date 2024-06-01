@@ -7,6 +7,7 @@ import SinglePost from "./pages/singlePost/SinglePost";
 
 import { Routes, Route } from "react-router-dom";
 import { path } from "./paths/paths";
+import AuthorAuth from "./pages/AuthorAuth/AuthorAuth";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path={path.home} element={<Home />} />
         <Route path={path.auth} element={<Auth />} />
+        <Route path={path.authorAuth} element={<AuthorAuth />} />
         <Route path={path.profile} element={<Profile />} />
         <Route path={path.singlePost} element={<SinglePost />} />
       </Routes>

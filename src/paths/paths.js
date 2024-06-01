@@ -2,5 +2,6 @@ export const path = {
   home: "/",
   auth: "/auth",
   profile: "/profile",
-  singlePost: "/singlePost"
+  singlePost: "/singlePost",
+  authorAuth:"/author-auth"
 };

@@ -22,6 +22,7 @@ export const postApi = async ({
     }
   }
   const response = await axios.post(`${appConfig.apiUrl}/${url}`, body, config)
+  console.log(response,"response");
 
   return response?.data
 }

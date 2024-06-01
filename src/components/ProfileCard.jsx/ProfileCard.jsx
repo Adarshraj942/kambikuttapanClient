@@ -30,14 +30,17 @@ const ProfileCard = () => {
       <div className="ProfileImages">
         <img
           src={
-            `${appConfig.awsBucketUrl}/${authData?.data?.coverImage}` ?? Cover
+            authData?.data?.coverImage
+              ? `${appConfig.awsBucketUrl}/${authData?.data?.coverImage}`
+              : Cover
           }
           alt=""
         />
         <img
           src={
-            `${appConfig.awsBucketUrl}/${authData?.data?.profileImage}` ??
-            Profile
+            authData?.data?.profileImage
+              ? `${appConfig.awsBucketUrl}/${authData?.data?.profileImage}`
+              : Profile
           }
           alt=""
         />

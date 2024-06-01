@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import './Auth.css'
+import './AuthorAuth.css'
 import Logo from '../../img/logo.png'
 import authback from '../../img/authback.png'
 // import { login } from '../../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { path } from '../../paths/paths'
-import { logIn,signUp } from '../../actions/auth.actions'
+import { AuthorLogin, AuthorSignUp } from '../../actions/auth.actions'
 // import { toast } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
 // import { NavLink } from 'react-router-dom'
 // import { path } from '../../paths/paths'
 
-const Auth = () => {
+const AuthorAuth = () => {
   const [isLogin, setIsLogin] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
   return (
@@ -60,7 +60,7 @@ function LogIn({ setIsLogin ,errorMessage, setErrorMessage }) {
     e.preventDefault()
     setErrorMessage('')
     await dispatch(
-      logIn({
+      AuthorLogin({
         email: loginData?.email,
         password: loginData?.password,
       }),
@@ -93,7 +93,7 @@ function LogIn({ setIsLogin ,errorMessage, setErrorMessage }) {
   return (
     <div className="a-right" style={{ color: 'black' }}>
       <form onSubmit={loginSubmit} className="infoForm authForm">
-        <h3>Log In</h3>
+        <h3>Author LogIn</h3>
         <h4 style={{ color: 'red',display:"none",...(errorMessage&&{display:"block"}) }}>{errorMessage}</h4>
         <div>
           <input
@@ -149,11 +149,11 @@ function LogIn({ setIsLogin ,errorMessage, setErrorMessage }) {
         </div>
         <div>
           <span style={{ fontSize: '12px' }}>
-            If you are an Author?
+            If you are an Reader?
             <span
               onClick={(e) => {
                 e.preventDefault()
-                navigate(path.authorAuth)
+                navigate(path.auth)
               }}
               className="linkText"
             >
@@ -184,7 +184,7 @@ function SignUp({ setIsLogin ,errorMessage,setErrorMessage }) {
   const handleSignUp = async (e)=>{
     e.preventDefault()
     await dispatch(
-      signUp({
+      AuthorSignUp({
         ...signUpdata
       }),
     )
@@ -211,7 +211,7 @@ console.log(signUpdata,"signUPdata");
   return (
     <div className="a-right" style={{ color: 'black' }}>
     <form onSubmit={handleSignUp} className="infoForm authForm">
-      <h3>SignUp</h3>
+      <h3>Author SignUp</h3>
       {/* <h4 style={{ color: 'red' }}>{errorMessage}</h4> */}
     
       <div >
@@ -333,9 +333,10 @@ console.log(signUpdata,"signUPdata");
         </span>
         <button className="button infoButton">SignUp</button>
       </div>
+    
     </form>
   </div>
   )
 }
 
-export default Auth
+export default AuthorAuth

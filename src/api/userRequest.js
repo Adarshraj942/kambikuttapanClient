@@ -37,3 +37,22 @@ export const updateUser = async (userData) => {
     console.log(error);
   }
 };
+export const updateAuthor = async (userData) => {
+  try {
+    const token = getLocalStorageItem("token");
+
+    return await API.patch(
+      `user/author`,
+      {
+        ...userData
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // Include the Bearer token in the Authorization header
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

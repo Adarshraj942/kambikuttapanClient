@@ -6,12 +6,16 @@ import { UilTimes } from '@iconscout/react-unicons'
 import { getPreSignedUrlUtill } from '../../utils/s3.utils'
 import { appConfig } from '../../config/appConfig'
 import { useDispatch } from 'react-redux'
-import { updateUser } from '../../actions/auth.actions'
+import { updateAuthor, updateUser } from '../../actions/auth.actions'
 import './profileModal.css'
+import { UserRole } from '../../config/enums';
+
 
 function ProfileModal({ modalOpened, setModalOpened, authData }) {
   const theme = useMantineTheme()
   const dispatch = useDispatch()
+  const isAuthor = authData?.data?.role === UserRole.AUTHOR
+
 
   const [image, setImage] = useState({
     profileImage: `${appConfig.awsBucketUrl}/${authData?.data?.profileImage}`,
@@ -48,16 +52,34 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(userData, 'updateData')
-    dispatch(
-      updateUser({
-        firstName: userData?.firstName,
-        lastName: userData?.lastName,
-        profileImage: userData?.profileImage,
-        coverImage: userData?.coverImage,
-        phoneNumber: userData?.phoneNumber,
-        email: userData?.email,
-      }),
-    )
+    if(isAuthor){
+      dispatch(
+        updateAuthor({
+          firstName: userData?.firstName,
+          lastName: userData?.lastName,
+          profileImage: userData?.profileImage,
+          coverImage: userData?.coverImage,
+          // phoneNumber: userData?.phoneNumber,
+          email: userData?.email,
+          userName:userData?.userName
+        }),
+      ) 
+      // setModalOpened(false)
+    }else{
+
+      dispatch(
+        updateUser({
+          firstName: userData?.firstName,
+          lastName: userData?.lastName,
+          profileImage: userData?.profileImage,
+          coverImage: userData?.coverImage,
+          // phoneNumber: userData?.phoneNumber,
+          email: userData?.email,
+          userName:userData?.userName
+        }),
+        // setModalOpened(false)
+      )
+    }
   }
 
   return (
@@ -73,7 +95,7 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
-      <form className="infoForm" onSubmit={handleSubmit}>
+      <form className="infoForm">
         <h3>Your info </h3>
 
         <div style={{ marginTop: '20px', height: '4rem' }}>
@@ -132,7 +154,7 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
             />
           </div>
 
-          <div style={{ display: 'grid', width: '100%' }}>
+          {/* <div style={{ display: 'grid', width: '100%' }}>
             <label htmlFor="phoneNumber">PhoneNumber</label>
             <input
               type="text"
@@ -143,7 +165,7 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
               placeholder="PhoneNumber"
               value={userData.phoneNumber}
             />
-          </div>
+          </div> */}
         </div>
 
         <div style={{ marginTop: '20px', height: '4rem' }}>
@@ -185,7 +207,7 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
               type="file"
               name="coverImage"
               className="infoInput"
-              placeholder="PhoneNumber"
+              // placeholder="PhoneNumber"
               ref={imageRef}
               onChange={onImageChange}
             />
@@ -218,6 +240,7 @@ function ProfileModal({ modalOpened, setModalOpened, authData }) {
           }}
           type="submit"
           className="button infoInput"
+          onClick={handleSubmit}
         >
           Update
         </button>

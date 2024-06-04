@@ -52,6 +52,7 @@ const PostShare = ({ data, setData }) => {
       console.log(imageData, 'image-image')
     }
   }
+  console.log(data,"dataaaa ");
 
   return (
     <div className="PostShare">
@@ -74,9 +75,11 @@ const PostShare = ({ data, setData }) => {
       </div>
       <div className="postOptions">
         <div
-          className="option"
+          className="photo-option"
           style={{ color: 'var(--photo)' }}
           onClick={() => imageRef.current.click()}
+          ref={imageRef}
+          onChange={onImageChange}
         >
           <UilScenery />
           Photo

@@ -68,7 +68,7 @@ const SinglePost = (PostsData) => {
             style={{
               // backgroundColor: "black",
               height: '100vh',
-              paddingTop: '10rem',
+              paddingTop: '5rem',
               // paddingLeft: "10rem",
               // paddingRight: "10rem",
               backgroundImage: `URL(${scroll})`,

@@ -44,6 +44,15 @@
     .PostShare{
       margin-top: 25px;
     }
+    /* .PostShare > div{
+      display: grid!important;
+    } */
+    /* .post-input{
+      max-width: 10rem!important;
+    } */
+}
+.modal-main{
+  height: auto!important;
 }
 
 .option {
@@ -55,6 +64,21 @@
   align-items: center;
   justify-content: center;
   font-size: 12px;
+}
+.photo-option{
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+@media screen and (width<=480px){
+  .option{
+    display: none!important;
+  }
 }
 
 .option:hover {

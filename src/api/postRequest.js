@@ -114,15 +114,15 @@ export const createPost = async (postData) => {
     console.log(error);
   }
 };
-export const createPayment = async (postData) => {
+export const updatePayment = async (paymentData) => {
   try {
     const token = getLocalStorageItem("token");
     // const token = userData?.data?.token;
 
     return await API.post(
-      `payment`,
+      `webHook`,
       {
-        ...postData
+        ...paymentData
       },
       {
         headers: {

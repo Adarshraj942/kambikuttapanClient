@@ -5,3 +5,9 @@
     height: 100vh;
     overflow: auto;
 }
+
+@media screen and (width<=648px) {
+    .PostSide{
+        height: auto;
+    }
+}
